@@ -1,0 +1,224 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Causal statements data",
+  "version": "0.0.1",
+  "type":"object",
+  "required":"false",
+  "properties":{
+    "causalStatement":{
+      "type":"array",
+      "required":true,
+      "items":{
+        "$ref":"#/definitions/causalStatement"
+      }
+    }
+  },
+  "description": "The description of a list of causal statements in a JSON format",
+  "definitions": {
+    "identification": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "A unique identifier that characterizes the object."
+        },
+        "name": {
+          "type": "string",
+          "description": "A human understandable alias/name that characterizes the identifier."
+        }
+      },
+      "required": [
+        "identifier"
+      ]
+    },
+    "taxon": {
+      "type": "object",
+      "title": "Taxon",
+      "description": "A biological taxon.",
+      "$ref": "#/definitions/identification"
+    },
+    "compartment": {
+      "type": "object",
+      "title": "Compartment",
+      "description": "A compartment in the cell.",
+      "$ref": "#/definitions/identification"
+    },
+    "biologicalModification": {
+      "type": "object",
+      "title": "A biological modification",
+      "properties": {
+        "modification": {
+          "type": "string",
+          "title": "Modification",
+          "description": "The type of the modification."
+        },
+        "residue": {
+          "type": "string",
+          "title": "Residue",
+          "description": "The modified residue."
+        },
+        "position": {
+          "type": "integer",
+          "title": "Position",
+          "description": "The position of the modified residue."
+        }
+      }
+    },
+    "experimentalSetup": {
+      "type": "object",
+      "title": "Experimental setup",
+      "description": "An experimental perturbation applied to the entity.",
+      "$ref": "#/definitions/identification"
+    },
+    "evidence": {
+      "type": "object",
+      "title": "Evidence",
+      "description": "The evidence of the causal statement.",
+      "$ref": "#/definitions/identification"
+    },
+    "entity": {
+      "type": "object",
+      "title": "Entity",
+      "description": "The biological entity involved in the causal statement.",
+      "$ref": "#/definitions/identification",
+      "properties": {
+        "components": {
+          "type": "array",
+          "title": "Components",
+          "description": "Array of components of the entity.",
+          "items": {
+            "$ref": "#/definitions/entity"
+          },
+          "default": []
+        },
+        "biologicalType": {
+          "type": "object",
+          "title": "Biological type",
+          "description": "The biological type of the entity.",
+          "$ref": "#/definitions/identification"
+        },
+        "biologicalActivity": {
+          "type": "object",
+          "title": "Biological activity",
+          "description": "The biological activity of the entity.",
+          "$ref": "#/definitions/identification"
+        },
+        "biologicalModifications": {
+          "type": "array",
+          "title": "Biological modification",
+          "description": "Array of biological modification of the entity.",
+          "items": {
+            "$ref": "#/definitions/biologicalModification"
+          },
+          "default": []
+        },
+        "entityTaxon": {
+          "type": "object",
+          "title": "Entity's taxon",
+          "description": "The taxon the entity comes from.",
+          "$ref": "#/definitions/taxon"
+        },
+        "entityCompartment": {
+          "type": "object",
+          "title": "Entity's compartment",
+          "description": "The compartment the entity is located in.",
+          "$ref": "#/definitions/compartment"
+        },
+        "experimentalSetups": {
+          "type": "array",
+          "title": "List of experimental setups",
+          "description": "An experimental setup of the observed entity.",
+          "items": {
+            "$ref": "#/definitions/experimentalSetup"
+          },
+          "default": []
+        }
+      }
+    },
+    "causalStatement": {
+      "type": "object",
+      "title": "Causal statement",
+      "description": "A causal statement.",
+      "properties": {
+        "source": {
+          "type": "object",
+          "title": "Source entity",
+          "description": "The source entity of the causal statement.",
+          "$ref": "#/definitions/entity"
+        },
+        "target": {
+          "type": "object",
+          "title": "Target entity",
+          "description": "The target entity of the causal statement.",
+          "$ref": "#/definitions/entity"
+        },
+        "effect": {
+          "type": "object",
+          "title": "effect",
+          "description": "The regulatory effect of the causal statement.",
+          "$ref": "#/definitions/identification",
+          "properties": {
+            "biologicalMechanism": {
+              "type": "object",
+              "title": "Biological mechanism",
+              "description": "The biological mechanism involved in the causal statement.",
+              "$ref": "#/definitions/identification"
+            },
+            "effectCompartment": {
+              "title": "effect's compartment",
+              "description": "The compartment in which the effect is observed.",
+              "$ref": "#/definitions/compartment"
+            },
+            "effectTaxon": {
+              "title": "effect's taxon",
+              "description": "The taxon in which the effect is observed.",
+              "$ref": "#/definitions/taxon"
+            },
+            "cellLine": {
+              "title": "Cell line",
+              "description": "The cell line in which the effect is observed.",
+              "type": "object",
+              "$ref": "#/definitions/identification"
+            },
+            "cellType": {
+              "title": "Cell type",
+              "description": "The cell type in which the effect is observed.",
+              "type": "object",
+              "$ref": "#/definitions/identification"
+            },
+            "tissueType": {
+              "title": "Tissue type",
+              "description": "The tissue type in which the effect is observed.",
+              "type": "object",
+              "$ref": "#/definitions/identification"
+            }
+          }
+        },
+        "references": {
+          "type": "array",
+          "title": "List of References",
+          "description": "Array of pubmed or DOI references where the causal statement is observed.",
+          "items": {
+            "type": "string",
+            "title": "pubmed id"
+          },
+          "default": []
+        },
+        "evidences": {
+          "type": "array",
+          "title": "List of Evidence",
+          "description": "Array of evidence, proof of the observed causal statement",
+          "items": {
+            "$ref": "#/definitions/evidence"
+          },
+          "default": []
+        }
+      },
+      "required": [
+      "source",
+      "target",
+      "effect"
+    ]
+    }
+  }
+}
