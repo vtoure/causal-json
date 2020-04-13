@@ -174,15 +174,9 @@
               "description": "The taxon in which the effect is observed.",
               "$ref": "#/definitions/taxon"
             },
-            "cellLine": {
-              "title": "Cell line",
-              "description": "The cell line in which the effect is observed.",
-              "type": "object",
-              "$ref": "#/definitions/identification"
-            },
             "cellType": {
               "title": "Cell type",
-              "description": "The cell type in which the effect is observed.",
+              "description": "The cell type (or cell line) in which the effect is observed.",
               "type": "object",
               "$ref": "#/definitions/identification"
             },
