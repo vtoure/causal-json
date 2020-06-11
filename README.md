@@ -8,7 +8,7 @@ This repository contains the causal-json JSON schema, developed for handling dat
 
 ## Schema structure
 
- To come...
+See [causal-json-schema.json](https://github.com/vtoure/causal-json/blob/master/schema/causal-json-schema.json).
  
 ## Related projects
 * [MI2CAST](https://github.com/MI2CAST/MI2CAST): guidelines for the curation of the minimum information about a molecular interaction causal statement
